@@ -1,6 +1,6 @@
 # Global Forest Watch OGR API
 
-[![Build Status](https://travis-ci.org/gfw-api/gfw-ogr-api.svg?branch=develop)](https://travis-ci.org/gfw-api/gfw-ogr-api)
+[![Build Status](https://travis-ci.com/gfw-api/gfw-ogr-api.svg?branch=dev)](https://travis-ci.com/gfw-api/gfw-ogr-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a818cbdf6e1cb49d6256/test_coverage)](https://codeclimate.com/github/gfw-api/gfw-ogr-api/test_coverage)
 
 This repository is the microservice that implements the OGR
