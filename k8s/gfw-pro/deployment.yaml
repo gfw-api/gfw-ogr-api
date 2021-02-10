@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    name: gfw-ogr-gfw-pro
+  name: gfw-ogr-gfw-pro
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      name: gfw-ogr-gfw-pro
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: gfw-ogr-gfw-pro
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - gfw-pro
+      containers:
+      - args:
+        - start
+        env:
+        - name: PORT
+          value: "3200"
+        - name: NODE_ENV
+          value: prod
+        - name: NODE_PATH
+          value: app/src
+        - name: LOCAL_URL
+          value: http://gfw-ogr-gfw-pro.default.svc.cluster.local:3200
+        - name: CT_URL
+          valueFrom:
+            secretKeyRef:
+              key: CT_URL
+              name: mssecrets
+        - name: CT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: CT_TOKEN
+              name: mssecrets
+        - name: CT_REGISTER_MODE
+          valueFrom:
+            secretKeyRef:
+              key: CT_REGISTER_MODE
+              name: mssecrets
+        - name: API_VERSION
+          valueFrom:
+            secretKeyRef:
+              key: API_VERSION
+              name: mssecrets
+        image: gfwdockerhub/gfw-ogr-gfw-pro
+        imagePullPolicy: Always
+        name: gfw-ogr-gfw-pro
+        ports:
+        - containerPort: 3200
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

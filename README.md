@@ -1,7 +1,11 @@
 # Global Forest Watch OGR API
 
+<<<<<<< Updated upstream
 [![Build Status](https://travis-ci.com/gfw-api/gfw-ogr-api.svg?branch=dev)](https://travis-ci.com/gfw-api/gfw-ogr-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a818cbdf6e1cb49d6256/test_coverage)](https://codeclimate.com/github/gfw-api/gfw-ogr-api/test_coverage)
+=======
+Master: [![Build Status](https://travis-ci.com/gfw-api/gfw-ogr-api.svg?branch=master)](https://travis-ci.com/gfw-api/gfw-ogr-api) Develop: [![Build Status](https://travis-ci.com/gfw-api/gfw-ogr-api.svg?branch=develop)](https://travis-ci.com/gfw-api/gfw-ogr-api)
+>>>>>>> Stashed changes
 
 This repository is the microservice that implements the OGR
 functionality, which is exposed on the /convert endpoint.

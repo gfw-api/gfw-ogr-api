@@ -1,0 +1,13 @@
+prod:
+  image: gfwdockerhub/gfw-ogr-api:1.1.0${STAGING}
+  cpuset: "0"
+  ports:
+    - "3200"
+  env_file:
+    - prod.env
+  command: start
+  restart: always
+  log_driver: "syslog"
+  log_opt:
+    syslog-address: ${SYSLOG_ADDRESS}
+    tag: gfw-ogr-api${STAGING}

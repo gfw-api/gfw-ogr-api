@@ -32,6 +32,7 @@ spec:
                     values:
                       - apps
       containers:
+<<<<<<< Updated upstream
         - args:
             - start
           env:
@@ -45,6 +46,31 @@ spec:
               value: http://gfw-ogr.gfw.svc.cluster.local:3200
             - name: CT_URL
               valueFrom:
+=======
+      - name: {name}
+        image: gfwdockerhub/{name}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        args:
+          - start
+        env:
+          - name: PORT
+            value: "3200"
+          - name: NODE_ENV
+            value: prod
+          - name: NODE_PATH
+            value: app/src
+          - name: LOCAL_URL
+            value: http://{name}.default.svc.cluster.local:3200
+          - name: CT_URL
+            valueFrom:
+>>>>>>> Stashed changes
                 secretKeyRef:
                   key: CT_URL
                   name: mssecrets
