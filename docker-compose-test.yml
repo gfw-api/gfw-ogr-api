@@ -1,13 +1,19 @@
-test:
-  extends:
-    file: base.yml
-    service: base
-  ports:
-    - "3200"
-  container_name: gfw-ogr-api-test
-  environment:
-    NODE_ENV: test
-    PORT: 3200
-    USER: root
-    NODE_PATH: app/src
-  command: test
+version: "3"
+services:
+  test:
+    build: .
+    ports:
+        - "3200"
+    container_name: gfw-ogr-api-test
+    environment:
+      CT_URL: http://mymachine:9000
+      API_VERSION: v1
+      CT_REGISTER_MODE: auto
+      NODE_ENV: test
+      PORT: 3200
+      USER: root
+      NODE_PATH: app/src
+      CT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1pY3Jvc2VydmljZSIsImNyZWF0ZWRBdCI6IjIwMTYtMDktMTQifQ.IRCIRm1nfIQTfda_Wb6Pg-341zhV8soAgzw7dd5HxxQ
+      LOCAL_URL: http://mymachine:7948
+      FASTLY_ENABLED: "false"
+    command: test

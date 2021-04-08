@@ -1,17 +1,17 @@
 {
-    "logger": {
-        "name": "gfw-ogr-api-DEV",
-        "level": "debug",
-        "toFile": false,
-        "dirLogFile": null
-    },
-    "service": {
-        "id": "gfw-ogr-api_1.0.0",
-        "name": "GFW OGR API",
-        "uri": "http://192.168.99.100:3200",
-        "port": 3200
-    },
-    "apiGateway":{
-        "uri": "http://localhost:8000/gateway/service"
-    }
+  "logger": {
+    "name": "gfw-ogr-api-DEV",
+    "level": "debug",
+    "toFile": false,
+    "dirLogFile": null
+  },
+  "service": {
+    "id": "gfw-ogr-api_1.0.0",
+    "name": "GFW OGR API",
+    "uri": "http://192.168.99.100:3200",
+    "port": 3200
+  },
+  "apiGateway": {
+    "uri": "http://localhost:8000/gateway/service"
+  }
 }

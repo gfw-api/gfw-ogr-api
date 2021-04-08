@@ -1,12 +1,12 @@
 {
-    "logger": {
-        "name": "gfw-ogr-api-STAGING",
-        "level": "info",
-        "toFile": false,
-        "dirLogFile": null
-    },
-    "service": {
-        "uri": "http://gfw-ogr-api-staging.herokuapp.com",
-        "port": null
-    }
+  "logger": {
+    "name": "gfw-ogr-api-STAGING",
+    "level": "info",
+    "toFile": false,
+    "dirLogFile": null
+  },
+  "service": {
+    "uri": "http://gfw-ogr-api-staging.herokuapp.com",
+    "port": null
+  }
 }

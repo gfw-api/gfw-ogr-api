@@ -1,0 +1,101 @@
+{
+  "data": {
+    "type": "geoJSON",
+    "id": "undefined",
+    "attributes": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-69.76318359375",
+            "lat": "7.667441482726068"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -69.76318359375,
+              7.667441482726068
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-68.203125",
+            "lat": "5.539445648546757"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -68.203125,
+              5.539445648546757
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-77.662353515625",
+            "lat": "7.449624260197816"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -77.662353515625,
+              7.449624260197816
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-71.466064453125",
+            "lat": "-1.098565496040652"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -71.466064453125,
+              -1.098565496040652
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-77.76123046875",
+            "lat": "2.3723687086440504"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -77.76123046875,
+              2.37236870864405
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "lon": "-74.64111328125",
+            "lat": "5.112829778499462"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -74.64111328125,
+              5.112829778499462
+            ]
+          }
+        }
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,7 @@
-'use strict';
-var logger = require('logger');
-var should = require('should');
-var assert = require('assert');
-var GeoJSONSerializer = require('serializers/geoJSONSerializer');
+const GeoJSONSerializer = require('serializers/geoJSONSerializer');
 
-describe('GeoJSON serializer test', function () {
-    var single =  {
+describe('GeoJSON serializer test', () => {
+    const single = {
         type: 'FeatureCollection',
         id: 'asdfa',
         features: [{
@@ -22,9 +18,9 @@ describe('GeoJSON serializer test', function () {
             }
         }]
     };
-    var severalFeatures = {
+    const severalFeatures = {
         type: 'FeatureCollection',
-        id:'asdfa',
+        id: 'asdfa',
         features: [{
             type: 'Feature',
             geometry: {
@@ -55,15 +51,11 @@ describe('GeoJSON serializer test', function () {
         }]
     };
 
-    before(function* () {
-
-    });
-
-    it('Generate correct jsonapi response (single)', function () {
-        let response = GeoJSONSerializer.serialize(single);
-        response.should.not.be.a.Array();
+    it('Generate correct jsonapi response (single)', () => {
+        const response = GeoJSONSerializer.serialize(single);
+        response.should.not.be.an('array');
         response.should.have.property('data');
-        let data = response.data;
+        const { data } = response;
         data.should.have.property('type');
         data.should.have.property('attributes');
         data.should.have.property('id');
@@ -72,27 +64,27 @@ describe('GeoJSON serializer test', function () {
         data.attributes.should.have.property('type');
         data.attributes.type.should.be.equal(single.type);
         data.attributes.should.have.property('features');
-        data.attributes.features.should.be.a.Array();
+        data.attributes.features.should.be.an('array');
         data.attributes.features.should.length(single.features.length);
-        let feature = data.attributes.features[0];
+        const feature = data.attributes.features[0];
         feature.should.have.property('type');
         feature.type.should.be.equal(single.features[0].type);
         feature.should.have.property('geometry');
-        feature.geometry.should.be.a.Object();
-        let geometry = feature.geometry;
+        feature.geometry.should.be.an('object');
+        const { geometry } = feature;
         geometry.should.have.property('type');
         geometry.type.should.be.equal(single.features[0].geometry.type);
         geometry.should.have.a.property('coordinates');
-        geometry.coordinates.should.be.a.Array();
+        geometry.coordinates.should.be.an('array');
         geometry.coordinates.should.length(single.features[0].geometry.coordinates.length);
         geometry.coordinates.should.be.equal(single.features[0].geometry.coordinates);
     });
 
-    it('Generate correct jsonapi response (several)', function () {
-        let response = GeoJSONSerializer.serialize(severalFeatures);
-        response.should.not.be.a.Array();
+    it('Generate correct jsonapi response (several)', () => {
+        const response = GeoJSONSerializer.serialize(severalFeatures);
+        response.should.not.be.an('array');
         response.should.have.property('data');
-        let data = response.data;
+        const { data } = response;
         data.should.have.property('type');
         data.should.have.property('attributes');
         data.should.have.property('id');
@@ -101,23 +93,20 @@ describe('GeoJSON serializer test', function () {
         data.attributes.should.have.property('type');
         data.attributes.type.should.be.equal(severalFeatures.type);
         data.attributes.should.have.property('features');
-        data.attributes.features.should.be.a.Array();
+        data.attributes.features.should.be.an('array');
         data.attributes.features.should.length(severalFeatures.features.length);
-        let feature = data.attributes.features[0];
+        const feature = data.attributes.features[0];
         feature.should.have.property('type');
         feature.type.should.be.equal(severalFeatures.features[0].type);
         feature.should.have.property('geometry');
-        feature.geometry.should.be.a.Object();
-        let geometry = feature.geometry;
+        feature.geometry.should.be.an('object');
+        const { geometry } = feature;
         geometry.should.have.property('type');
         geometry.type.should.be.equal(severalFeatures.features[0].geometry.type);
         geometry.should.have.a.property('coordinates');
-        geometry.coordinates.should.be.a.Array();
+        geometry.coordinates.should.be.an('array');
         geometry.coordinates.should.length(severalFeatures.features[0].geometry.coordinates.length);
         geometry.coordinates.should.be.equal(severalFeatures.features[0].geometry.coordinates);
     });
 
-    after(function* () {
-
-    });
 });

@@ -90,7 +90,7 @@ node {
           }
           break
 
-        // Roll out to production - GFW version
+        // Roll out to production
         case "production":
           def userInput = true
           def didTimeout = false

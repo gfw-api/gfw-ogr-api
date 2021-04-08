@@ -1,9 +1,12 @@
 {
-    "apiGateway":{
-        "uri": "API_GATEWAY_URI"
-    },
-    "service": {
-        "port": "PORT",
-        "uri": "URI"
-    }
+  "apiGateway": {
+    "uri": "API_GATEWAY_URI"
+  },
+  "service": {
+    "port": "PORT",
+    "uri": "URI"
+  },
+  "logger": {
+    "level": "LOGGER_LEVEL"
+  }
 }
