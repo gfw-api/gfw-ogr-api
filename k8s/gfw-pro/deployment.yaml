@@ -29,7 +29,7 @@ spec:
                   - key: type
                     operator: In
                     values:
-                      - gfw-pro
+                      - gfw
       containers:
         - args:
             - start
