@@ -60,6 +60,17 @@ describe('V2 convert tests', () => {
         response.body.should.deep.equal(fileData);
     });
 
+    it('V2 convert a large zip file should be successful (happy case)', async () => {
+        const response = await requester
+            .post(`/api/v2/ogr/convert`)
+            .attach('file', `${process.cwd()}/app/test/e2e/files/large.zip`);
+
+        response.status.should.equal(200);
+        response.body.should.have.all.keys('data');
+        response.body.data.should.have.all.keys(['type', 'id', 'attributes']);
+        response.body.data.attributes.should.have.all.keys(['type', 'features', 'crs']);
+    });
+
     it('V2 convert a valid csv file should be successful (happy case)', async () => {
         const fileData = JSON.parse(fs.readFileSync(`${process.cwd()}/app/test/e2e/files/points_response_v2.json`));
 
