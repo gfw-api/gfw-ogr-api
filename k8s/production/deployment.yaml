@@ -37,6 +37,8 @@ spec:
           env:
             - name: PORT
               value: "3200"
+            - name: LOGGER_LEVEL
+              value: debug
             - name: NODE_ENV
               value: prod
             - name: NODE_PATH

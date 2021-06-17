@@ -16,6 +16,7 @@ class OGRRouterV2 {
 
     static async convertV2(ctx) {
         logger.info('Converting file...', ctx.request.body);
+        logger.debug(`[OGRRouterV2 - convertV2] request: ${JSON.stringify(ctx.request)}`);
 
         ctx.assert(ctx.request.files && ctx.request.files.file, 400, 'File required');
         const simplify = ctx.query.simplify || null;
@@ -26,6 +27,7 @@ class OGRRouterV2 {
 
         try {
             let ogr;
+
 
             logger.info(`[OGRRouterV2 - convertV2] file type: ${ctx.request.files.file.type}`);
             logger.debug(`[OGRRouterV2 - convertV2] file size: ${ctx.request.files.file.size}`);
