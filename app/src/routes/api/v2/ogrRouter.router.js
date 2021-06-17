@@ -2,9 +2,9 @@ const Router = require('koa-router');
 const logger = require('logger');
 const ogr2ogr = require('ogr2ogr');
 const XLSX = require('xlsx');
-const util = require('util');
+// const util = require('util');
 const GeoJSONSerializer = require('serializers/geoJSONSerializer');
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 const mapshaper = require('mapshaper');
 
@@ -78,8 +78,8 @@ class OGRRouterV2 {
             ctx.throw(400, e.message.split('\n')[0]);
         } finally {
             logger.debug('[OGRRouterV2 - convertV2] Removing file');
-            const unlink = util.promisify(fs.unlink);
-            await unlink(ctx.request.files.file.path);
+            // const unlink = util.promisify(fs.unlink);
+            // await unlink(ctx.request.files.file.path);
         }
     }
 
