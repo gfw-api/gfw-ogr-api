@@ -24,6 +24,7 @@ app.use(async (ctx, next) => {
         await next();
     } catch (inErr) {
         let error = inErr;
+        logger.debug('Error handling - Error object: ', JSON.stringify(error));
         try {
             error = JSON.parse(inErr);
         } catch (e) {
@@ -38,9 +39,9 @@ app.use(async (ctx, next) => {
         }
 
         ctx.body = ErrorSerializer.serializeError(ctx.status, error.message);
-        if (process.env.NODE_ENV === 'prod' && ctx.status === 500) {
-            ctx.body = 'Unexpected error';
-        }
+        // if (process.env.NODE_ENV === 'prod' && ctx.status === 500) {
+        //     ctx.body = 'Unexpected error';
+        // }
         ctx.response.type = 'application/vnd.api+json';
     }
 });
