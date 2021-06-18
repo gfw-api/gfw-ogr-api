@@ -1,4 +1,3 @@
-const logger = require('logger');
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 const geoJSONSerializer = new JSONAPISerializer('geoJSON', {
@@ -17,7 +16,6 @@ const geoJSONSerializer = new JSONAPISerializer('geoJSON', {
 class GeoJSONSerializer {
 
     static serialize(data) {
-        logger.debug(`[GeoJSONSerializer - serialize] serializing ${JSON.stringify(data)}`);
         return geoJSONSerializer.serialize(data);
     }
 
