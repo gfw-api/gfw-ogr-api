@@ -67,7 +67,7 @@ describe('V2 convert tests', () => {
 
         response.status.should.equal(200);
         response.body.should.have.all.keys('data');
-        response.body.data.should.have.all.keys(['type', 'id', 'attributes']);
+        response.body.data.should.have.all.keys(['type', 'attributes']);
         response.body.data.attributes.should.have.all.keys(['type', 'features', 'crs']);
     });
 
@@ -78,7 +78,7 @@ describe('V2 convert tests', () => {
 
         response.status.should.equal(200);
         response.body.should.have.all.keys('data');
-        response.body.data.should.have.all.keys(['type', 'id', 'attributes']);
+        response.body.data.should.have.all.keys(['type', 'attributes']);
         response.body.data.attributes.should.have.all.keys(['type', 'features', 'crs']);
     });
 
