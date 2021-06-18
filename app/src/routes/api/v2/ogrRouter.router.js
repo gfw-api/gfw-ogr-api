@@ -69,8 +69,8 @@ class OGRRouterV2 {
             logger.info('[OGRRouterV2 - convertV2] cmd:');
             logger.info(cmd);
             const resultPostMapshaper = await mapshaper.applyCommands(cmd, input);
+            logger.debug(`[OGRRouterV2 - convertV2] resultPostMapshaper: ${JSON.stringify(resultPostMapshaper)}`);
             ctx.body = GeoJSONSerializer.serialize(JSON.parse(resultPostMapshaper['output.json']));
-
         } catch (e) {
             logger.error('[OGRRouterV2 - convertV2] Error convertV2 file', e);
             ctx.throw(400, e.message.split('\n')[0]);
