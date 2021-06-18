@@ -13,11 +13,7 @@ const { RWAPIMicroservice } = require('rw-api-microservice-node');
 // instance of koa
 const app = new Koa();
 
-// if environment is dev then load koa-logger
-if (process.env.NODE_ENV === 'dev') {
-    logger.debug('Use logger');
-    app.use(koaLogger());
-}
+app.use(koaLogger());
 
 app.use(async (ctx, next) => {
     try {
