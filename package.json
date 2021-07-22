@@ -39,7 +39,7 @@
     "koa-validate": "^1.0.7",
     "mapshaper": "^0.4.163",
     "ogr2ogr": "^2.0.0",
-    "xlsx": "^0.15.6"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
