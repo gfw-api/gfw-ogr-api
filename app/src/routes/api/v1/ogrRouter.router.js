@@ -21,32 +21,31 @@ class OgrRouterRouter {
         try {
             let ogr;
 
-            if (ctx.request.files.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+            if (ctx.request.files.file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                 logger.debug('IT IS A excel');
-                const xslxFile = XLSX.readFile(ctx.request.files.file.path);
-                const csvPAth = path.parse(ctx.request.files.file.path);
+                const xslxFile = XLSX.readFile(ctx.request.files.file.filepath);
+                const csvPAth = path.parse(ctx.request.files.file.filepath);
                 csvPAth.ext = '.csv';
                 csvPAth.base = csvPAth.name + csvPAth.ext;
                 XLSX.writeFile(xslxFile, path.format(csvPAth), { type: 'file', bookType: 'csv' });
-                ctx.request.files.file.path = path.format(csvPAth);
+                ctx.request.files.file.filepath = path.format(csvPAth);
                 // logger.debug(buf);
-                ogr = ogr2ogr(ctx.request.files.file.path);
+                ogr = ogr2ogr(ctx.request.files.file.filepath);
                 ogr.project('EPSG:4326')
                     .timeout(60000); // increase default ogr timeout of 15 seconds to match control-tower
                 ogr.options(['-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=NO']);
             } else {
-                ogr = ogr2ogr(ctx.request.files.file.path);
+                ogr = ogr2ogr(ctx.request.files.file.filepath);
                 ogr.project('EPSG:4326')
                     .timeout(60000); // increase default ogr timeout of 15 seconds to match control-tower
 
-                if (ctx.request.files.file.type === 'text/csv' || ctx.request.files.file.type === 'application/vnd.ms-excel') {
+                if (ctx.request.files.file.mimetype === 'text/csv' || ctx.request.files.file.mimetype === 'application/vnd.ms-excel') {
                     logger.debug('csv transforming ...');
                     // @TODO
                     ogr.options(['-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=NO']);
                 } else {
                     ogr.options(['-dim', '2']);
                 }
-
             }
             const result = await ogr.promise();
             // logger.debug(result);
@@ -57,13 +56,12 @@ class OgrRouterRouter {
         } finally {
             logger.debug('Removing file');
             const unlink = util.promisify(fs.unlink);
-            await unlink(ctx.request.files.file.path);
+            await unlink(ctx.request.files.file.filepath);
         }
     }
 
 }
 
 router.post('/convert', OgrRouterRouter.convert);
-
 
 module.exports = router;

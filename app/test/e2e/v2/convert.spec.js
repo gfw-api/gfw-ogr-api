@@ -2,6 +2,7 @@ const nock = require('nock');
 const chai = require('chai');
 const fs = require('fs');
 const { getTestServer } = require('../utils/test-server');
+const { mockValidateRequestWithApiKey } = require('../utils/helpers');
 
 chai.should();
 chai.use(require('chai-datetime'));
@@ -20,8 +21,10 @@ describe('V2 convert tests', () => {
     });
 
     it('V2 convert with no file should fail', async () => {
+        mockValidateRequestWithApiKey({});
         const response = await requester
             .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
             .send();
 
         response.status.should.equal(400);
@@ -39,8 +42,10 @@ describe('V2 convert tests', () => {
     });
 
     it('V2 convert an invalid zip file should fail', async () => {
+        mockValidateRequestWithApiKey({});
         const response = await requester
             .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
             .attach('file', `${process.cwd()}/app/test/e2e/files/invalid.zip`);
 
         response.status.should.equal(400);
@@ -50,10 +55,12 @@ describe('V2 convert tests', () => {
     });
 
     it('V2 convert a valid zip file should be successful (happy case)', async () => {
+        mockValidateRequestWithApiKey({});
         const fileData = JSON.parse(fs.readFileSync(`${process.cwd()}/app/test/e2e/files/shape_response_v2.json`));
 
         const response = await requester
             .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
             .attach('file', `${process.cwd()}/app/test/e2e/files/shape.zip`);
 
         response.status.should.equal(200);
@@ -61,21 +68,25 @@ describe('V2 convert tests', () => {
     });
 
     it('V2 convert a large zip file should be successful (happy case)', async () => {
+        mockValidateRequestWithApiKey({});
         const response = await requester
             .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
             .attach('file', `${process.cwd()}/app/test/e2e/files/large.zip`);
 
         response.status.should.equal(200);
         response.body.should.have.all.keys('data');
-        response.body.data.should.have.all.keys(['type', 'id', 'attributes']);
+        response.body.data.should.have.all.keys(['type', 'attributes']);
         response.body.data.attributes.should.have.all.keys(['type', 'features', 'crs']);
     });
 
     it('V2 convert a valid csv file should be successful (happy case)', async () => {
+        mockValidateRequestWithApiKey({});
         const fileData = JSON.parse(fs.readFileSync(`${process.cwd()}/app/test/e2e/files/points_response_v2.json`));
 
         const response = await requester
             .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
             .attach('file', `${process.cwd()}/app/test/e2e/files/points.csv`);
 
         response.status.should.equal(200);

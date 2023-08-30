@@ -4,11 +4,10 @@
   "description": "Global forest watch - OGR API",
   "main": "app/index.js",
   "scripts": {
-    "test-e2e": "NODE_PATH=app/src grunt --gruntfile app/Gruntfile.js e2eTest",
-    "test-unit": "NODE_PATH=app/src grunt --gruntfile app/Gruntfile.js unitTest",
     "start": "NODE_PATH=app/src node app/index",
     "test": "NODE_PATH=app/src node $NODE_DEBUG_OPTION ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js test",
-    "coverage": "NODE_PATH=app/src node $NODE_DEBUG_OPTION ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js nyc"
+    "coverage": "NODE_PATH=app/src node $NODE_DEBUG_OPTION ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js nyc",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -17,7 +16,7 @@
   "author": {
     "name": "Vizzuality",
     "email": "hello@vizzuality.com",
-    "url": "http://vizzuality.com/"
+    "url": "https://vizzuality.com/"
   },
   "license": "MIT",
   "bugs": {
@@ -25,61 +24,52 @@
   },
   "homepage": "https://github.com/Vizzuality/gfw-ogr-api#readme",
   "dependencies": {
-    "bunyan": "^1.8.12",
-    "config": "^3.3.1",
-    "rw-api-microservice-node": "^3.4.1",
-    "jsonapi-serializer": "2.1.1",
-    "koa": "^2.11.0",
-    "koa-body": "^4.1.1",
-    "koa-convert": "^1.2.0",
+    "bunyan": "^1.8.15",
+    "config": "^3.3.9",
+    "rw-api-microservice-node": "^5.1.3",
+    "jsonapi-serializer": "^3.6.7",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
     "koa-logger": "^3.2.1",
     "koa-mount": "^4.0.0",
     "koa-simple-healthcheck": "^0.0.1",
-    "koa-router": "^8.0.8",
+    "koa-router": "^12.0.0",
     "koa-validate": "^1.0.7",
     "mapshaper": "^0.4.163",
-    "ogr2ogr": "^2.0.0",
+    "ogr2ogr": "^2.1.2",
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "chai-datetime": "^1.5.0",
-    "co-mocha": "1.1.2",
-    "babel-eslint": "^10.0.3",
-    "fs-extra": "0.26.7",
-    "grunt-apidoc": "0.10.1",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-react": "^7.19.0",
-    "grunt": "^1.3.0",
-    "grunt-cli": "^1.3.2",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-jshint": "^2.1.0",
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "chai-datetime": "^1.8.0",
+    "@babel/eslint-parser": "^7.22.11",
+    "eslint": "^8.48.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-express-server": "^0.5.4",
     "grunt-mocha-test": "^0.13.3",
-    "grunt-notify": "^0.4.5",
     "grunt-simple-nyc": "^3.0.1",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.8",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "load-grunt-tasks": "^5.1.0",
-    "mocha": "^7.1.1",
-    "nock": "^12.0.3",
-    "nyc": "^15.0.0"
+    "mocha": "^10.2.0",
+    "nock": "^13.3.3",
+    "nyc": "^15.1.0"
   },
   "engines": {
-    "node": "~12"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "node": "~20.4"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.ts": [
+      "eslint --fix"
+    ]
   }
 }

@@ -28,29 +28,29 @@ class OGRRouterV2 {
 
         try {
             let ogr;
-            logger.info(`[OGRRouterV2 - convertV2] file type: ${ctx.request.files.file.type}`);
+            logger.info(`[OGRRouterV2 - convertV2] file type: ${ctx.request.files.file.mimetype}`);
             logger.debug(`[OGRRouterV2 - convertV2] file size: ${ctx.request.files.file.size}`);
 
-            if (ctx.request.files.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+            if (ctx.request.files.file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                 logger.info('[OGRRouterV2 - convertV2] It is an excel file');
-                const xslxFile = XLSX.readFile(ctx.request.files.file.path);
-                const csvPAth = path.parse(ctx.request.files.file.path);
+                const xslxFile = XLSX.readFile(ctx.request.files.file.filepath);
+                const csvPAth = path.parse(ctx.request.files.file.filepath);
                 csvPAth.ext = '.csv';
                 csvPAth.base = csvPAth.name + csvPAth.ext;
                 XLSX.writeFile(xslxFile, path.format(csvPAth), { type: 'file', bookType: 'csv' });
-                ctx.request.files.file.path = path.format(csvPAth);
-                ogr = ogr2ogr(ctx.request.files.file.path);
+                ctx.request.files.file.filepath = path.format(csvPAth);
+                ogr = ogr2ogr(ctx.request.files.file.filepath);
                 ogr.project('EPSG:4326')
                     .timeout(60000); // increase default ogr timeout of 15 seconds to match control-tower
                 ogr.options(['-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=NO']);
             } else {
                 logger.info('[OGRRouterV2 - convertV2] Not an excel file');
 
-                ogr = ogr2ogr(ctx.request.files.file.path);
+                ogr = ogr2ogr(ctx.request.files.file.filepath);
                 ogr.project('EPSG:4326')
                     .timeout(60000); // increase default ogr timeout of 15 seconds
 
-                if (ctx.request.files.file.type === 'text/csv' || ctx.request.files.file.type === 'application/vnd.ms-excel') {
+                if (ctx.request.files.file.mimetype === 'text/csv' || ctx.request.files.file.mimetype === 'application/vnd.ms-excel') {
                     logger.info('[OGRRouterV2 - convertV2] CSV transforming');
                     ogr.options(['-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=NO']);
                 } else {
@@ -77,7 +77,7 @@ class OGRRouterV2 {
         } finally {
             logger.debug('[OGRRouterV2 - convertV2] Removing file');
             const unlink = util.promisify(fs.unlink);
-            await unlink(ctx.request.files.file.path);
+            await unlink(ctx.request.files.file.filepath);
         }
     }
 
