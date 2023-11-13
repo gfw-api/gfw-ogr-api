@@ -17,6 +17,9 @@ services:
       AWS_REGION: "us-east-1"
       AWS_ACCESS_KEY_ID: "test"
       AWS_SECRET_ACCESS_KEY: "test"
+      AWS_CLOUD_WATCH_LOGGING_ENABLED: "false"
+      REQUIRE_API_KEY: "false"
+      GATEWAY_URL: "http://mymachine:9000"
     command: develop
     volumes:
       - ./app:/opt/gfw-ogr-api/app
