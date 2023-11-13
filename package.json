@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/Vizzuality/gfw-ogr-api#readme",
   "dependencies": {
-    "unzipper": "latest",
     "bunyan": "^1.8.15",
     "config": "^3.3.9",
     "rw-api-microservice-node": "^5.1.3",
