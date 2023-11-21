@@ -4,7 +4,8 @@
   },
   "service": {
     "port": "PORT",
-    "uri": "URI"
+    "uri": "URI",
+    "s3Bucket": "CONVERTER_S3_BUCKET"
   },
   "logger": {
     "level": "LOGGER_LEVEL"

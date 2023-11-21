@@ -9,7 +9,8 @@
     "id": "gfw-ogr-api_1.0.0",
     "name": "GFW OGR API",
     "uri": "http://192.168.99.100:3200",
-    "port": 3200
+    "port": 3200,
+    "s3Bucket": null
   },
   "apiGateway": {
     "uri": "http://localhost:8000/gateway/service"
