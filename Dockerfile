@@ -5,7 +5,7 @@ ENV NAME gfw-ogr-api
 ENV USER microservice
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache --update bash git openssh python alpine-sdk gdal
+    apk add --no-cache --update bash git openssh python3 alpine-sdk gdal gdal-tools
 
 RUN addgroup $USER && adduser -s /bin/bash -D -G $USER $USER
 

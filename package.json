@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/Vizzuality/gfw-ogr-api#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "3.200.0",
+    "@aws-sdk/s3-request-presigner": "3.200.0",
+    "@aws-sdk/types": "3.200.0",
     "bunyan": "^1.8.12",
     "config": "^3.3.1",
     "rw-api-microservice-node": "^3.4.1",
@@ -81,5 +84,9 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "resolutions": {
+    "@aws-sdk/types": "3.200.0",
+    "@aws-sdk/util-locate-window": "3.188.0"
   }
 }

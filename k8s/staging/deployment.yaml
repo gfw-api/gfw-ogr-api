@@ -80,6 +80,18 @@ spec:
                   key: FASTLY_SERVICEID
                   name: mssecrets
                   optional: true
+            - name: AWS_REGION
+              valueFrom:
+                secretKeyRef:
+                  key: AWS_REGION
+                  name: mssecrets
+                  optional: true
+            - name: CONVERTER_S3_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  key: CONVERTER_S3_BUCKET
+                  name: mssecrets
+                  optional: true
           image: gfwdockerhub/gfw-ogr
           imagePullPolicy: Always
           livenessProbe:
