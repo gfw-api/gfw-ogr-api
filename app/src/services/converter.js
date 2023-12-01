@@ -25,45 +25,52 @@ class OGRConverter {
             csvPAth.base = csvPAth.name + csvPAth.ext;
             XLSX.writeFile(xslxFile, path.format(csvPAth), { type: 'file', bookType: 'csv' });
             ctx.request.files.file.filepath = path.format(csvPAth);
-            let options = ['-t_srs', 'EPSG:4326', '-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=YES'];
-            result = await ogr2ogr(ctx.request.files.file.filepath, { options, timeout:  60000});
+            const options = ['-t_srs', 'EPSG:4326', '-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=YES'];
+            result = await ogr2ogr(ctx.request.files.file.filepath, { options, timeout: 60000 });
         } else {
             logger.info('[OGRRouterV2 - convertV2] Not an excel file');
 
             let options;
-            let inputPath = ctx.request.files.file.filepath
+            let inputPath = ctx.request.files.file.filepath;
 
             if (ctx.request.files.file.mimetype === 'text/csv' || ctx.request.files.file.mimetype === 'application/vnd.ms-excel') {
                 logger.debug('csv transforming ...');
                 // @TODO
-                options = ["-s_srs", "EPSG:4326", "-t_srs", "EPSG:4326", '-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'CSVLINE=YES', '-oo', 'X_POSSIBLE_NAMES=lon*,Lon*', '-oo', 'Y_POSSIBLE_NAMES=lat*,Lon*', '-oo', 'KEEP_GEOM_COLUMNS=YES'];
+                options = [
+                    '-s_srs', 'EPSG:4326', '-t_srs', 'EPSG:4326',
+                    '-oo', 'GEOM_POSSIBLE_NAMES=*geom*',
+                    '-oo', 'CSVLINE=YES',
+                    '-oo', 'X_POSSIBLE_NAMES=lon*,Lon*',
+                    '-oo', 'Y_POSSIBLE_NAMES=lat*,Lon*',
+                    '-oo', 'KEEP_GEOM_COLUMNS=YES'
+                ];
             } else {
-                options = ["-t_srs", "EPSG:4326", '-dim', '2'];
+                options = ['-t_srs', 'EPSG:4326', '-dim', '2'];
                 if (ctx.request.files.file.mimetype === 'application/zip') {
                     const readStream = fs.createReadStream(inputPath);
-                    await new Promise((resolve, reject) => {
+                    await new Promise((resolve) => {
                         readStream.pipe(unzipper.Parse())
-                        .on('entry', entry => {
-                            if (entry.type === 'Directory') {
-                                inputPath = `/vsizip/${inputPath}/${entry.path}`
-                            }
-                            // Continue processing other entries
-                            entry.autodrain();
-                        })
-                        .on('finish', () => {
-                            console.log('Processing finished');                
-                            resolve();
-                        })
-                    })   
+                            .on('entry', (entry) => {
+                                if (entry.type === 'Directory') {
+                                    inputPath = `/vsizip/${inputPath}/${entry.path}`;
+                                }
+                                // Continue processing other entries
+                                entry.autodrain();
+                            })
+                            .on('finish', () => {
+                                logger.info('Processing zip file finished');
+                                resolve();
+                            });
+                    });
                 }
             }
-            result = await ogr2ogr(inputPath, { options, timeout: 60000});
+            result = await ogr2ogr(inputPath, { options, timeout: 60000 });
         }
 
-        logger.info('convertresult', result)
-        return result
+        return result;
 
     }
+
 }
 
-module.exports = OGRConverter
+module.exports = OGRConverter;

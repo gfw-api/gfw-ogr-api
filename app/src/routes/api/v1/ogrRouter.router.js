@@ -13,14 +13,13 @@ const router = new Router({
 class OgrRouterRouter {
 
     static async convert(ctx) {
-        // logger.debug('Converting file...', ctx.request.body);
+        logger.debug('Converting file...', ctx.request.body);
 
         ctx.assert(ctx.request.files && ctx.request.files.file, 400, 'File required');
 
         try {
-            const result = await OGRConverter.convert(ctx)
-            ctx.body = GeoJSONSerializer.serialize(result['data']);  
-            // logger.debug(result);
+            const result = await OGRConverter.convert(ctx);
+            ctx.body = GeoJSONSerializer.serialize(result.data);
         } catch (e) {
             logger.error('Error convert file', e);
             ctx.throw(400, e.message.split('\n')[0]);

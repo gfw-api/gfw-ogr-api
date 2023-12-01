@@ -14,9 +14,9 @@ class OGRRouterV2 {
 
     static async convertV2(ctx) {
         logger.info('Converting file...', ctx.request.body);
-        logger.debug(`[OGRRouterV2 - convertV2] request: ${JSON.stringify(ctx.request)}`);
+        logger.debug(`request: ${JSON.stringify(ctx.request)}`);
         ctx.assert(ctx.request.files && ctx.request.files.file, 400, 'File required');
-        logger.debug(`[OGRRouterV2 - convertV2] file data: ${JSON.stringify(ctx.request.files.file)}`);
+        logger.debug(`file data: ${JSON.stringify(ctx.request.files.file)}`);
 
         const simplify = ctx.query.simplify || null;
         const clean = ctx.query.clean || false;
@@ -25,21 +25,21 @@ class OGRRouterV2 {
         const cleanCmd = clean && Boolean(clean) ? '-clean ' : '';
 
         try {
-            const result = await OGRConverter.convert(ctx)
+            const result = await OGRConverter.convert(ctx);
 
             // Mapshaper input stream from file
-            const input = { 'input.json': result['data'] };
+            const input = { 'input.json': result.data };
             const cmd = `-i no-topology input.json ${simplifyCmd}${cleanCmd} -each '__id=$.id' -o output.json`;
-            logger.info('[OGRRouterV2 - convertV2] cmd:');
+            logger.info('cmd:');
             logger.info(cmd);
             const resultPostMapshaper = await mapshaper.applyCommands(cmd, input);
             ctx.body = GeoJSONSerializer.serialize(JSON.parse(resultPostMapshaper['output.json']));
 
         } catch (e) {
-            logger.error('[OGRRouterV2 - convertV2] Error convertV2 file', e);
+            logger.error('Error convertV2 file', e);
             ctx.throw(400, e.message.split('\n')[0]);
         } finally {
-            logger.debug('[OGRRouterV2 - convertV2] Removing file');
+            logger.debug('Removing file');
             const unlink = util.promisify(fs.unlink);
             await unlink(ctx.request.files.file.filepath);
         }
