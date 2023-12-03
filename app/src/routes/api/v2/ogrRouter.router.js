@@ -80,6 +80,9 @@ class OGRRouterV2 {
                 const objectUrl = await OGRRouterV2.uploadToS3(
                     `${filename}.json`, resultPostMapshaper['output.json']
                 );
+                ctx.status = 303;
+                ctx.set('Location', objectUrl);
+
                 return ctx.redirect(objectUrl);
             }
             ctx.body = GeoJSONSerializer.serialize(JSON.parse(resultPostMapshaper['output.json']));
