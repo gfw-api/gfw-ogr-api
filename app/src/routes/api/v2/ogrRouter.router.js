@@ -78,7 +78,7 @@ class OGRRouterV2 {
             if (fileSize > 9.5) { // exceeds API Gateway response size limit of 10MB
                 logger.info('[OGRRouterV2 - convertV2] uploading files to s3 bucket');
                 const objectUrl = await OGRRouterV2.uploadToS3(
-                    `${filename}.json`, resultPostMapshaper['output.json']
+                    `${filename}.json`, JSON.stringify(GeoJSONSerializer.serialize(JSON.parse(resultPostMapshaper['output.json'])))
                 );
                 ctx.status = 303;
                 ctx.set('Location', objectUrl);
