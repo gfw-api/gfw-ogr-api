@@ -4,6 +4,7 @@
   "description": "Global forest watch - OGR API",
   "main": "app/index.js",
   "scripts": {
+    "dev": "NODE_PATH=app/src nodemon app/index.js",
     "start": "NODE_PATH=app/src node app/index",
     "test": "NODE_PATH=app/src node $NODE_DEBUG_OPTION ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js test",
     "coverage": "NODE_PATH=app/src node $NODE_DEBUG_OPTION ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js nyc",
@@ -36,7 +37,8 @@
     "koa-router": "^12.0.0",
     "koa-validate": "^1.0.7",
     "mapshaper": "^0.4.163",
-    "ogr2ogr": "^2.1.2",
+    "ogr2ogr": "^4.0.1",
+    "unzipper": "^0.10.14",
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
@@ -62,6 +64,7 @@
     "load-grunt-tasks": "^5.1.0",
     "mocha": "^10.2.0",
     "nock": "^13.3.3",
+    "nodemon": "^3.0.1",
     "nyc": "^15.1.0"
   },
   "engines": {
