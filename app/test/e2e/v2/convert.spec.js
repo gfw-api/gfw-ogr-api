@@ -3,9 +3,6 @@ const chai = require('chai');
 const fs = require('fs');
 const { getTestServer } = require('../utils/test-server');
 const { mockValidateRequestWithApiKey } = require('../utils/helpers');
-
-const { mockPutAWSS3Object, mockGetAWSS3Object } = require('../utils/mocks');
-
 const { mockPutAWSS3Object, mockGetAWSS3Object } = require('../utils/mocks');
 
 chai.should();
