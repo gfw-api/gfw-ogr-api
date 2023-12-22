@@ -15,11 +15,10 @@ services:
       LOCAL_URL: http://mymachine:7948
       FASTLY_ENABLED: "false"
       AWS_REGION: "us-east-1"
-      AWS_ACCESS_KEY_ID: "test"
-      AWS_SECRET_ACCESS_KEY: "test"
       AWS_CLOUD_WATCH_LOGGING_ENABLED: "false"
       REQUIRE_API_KEY: "false"
       GATEWAY_URL: "http://mymachine:9000"
+      CONVERTER_S3_BUCKET: "converter-bucket"
     command: develop
     volumes:
       - ./app:/opt/gfw-ogr-api/app

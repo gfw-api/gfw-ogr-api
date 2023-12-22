@@ -4,6 +4,8 @@ const fs = require('fs');
 const { getTestServer } = require('../utils/test-server');
 const { mockValidateRequestWithApiKey } = require('../utils/helpers');
 
+const { mockPutAWSS3Object, mockGetAWSS3Object } = require('../utils/mocks');
+
 chai.should();
 chai.use(require('chai-datetime'));
 
@@ -78,6 +80,18 @@ describe('V2 convert tests', () => {
         response.body.should.have.all.keys('data');
         response.body.data.should.have.all.keys(['type', 'attributes']);
         response.body.data.attributes.should.have.all.keys(['type', 'features', 'crs']);
+    });
+
+    it('V2 convert a very large zip file should be successful (happy case)', async () => {
+        mockPutAWSS3Object();
+        mockGetAWSS3Object();
+        mockValidateRequestWithApiKey({});
+        const response = await requester
+            .post(`/api/v2/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
+            .attach('file', `${process.cwd()}/app/test/e2e/files/very_large.zip`);
+
+        response.status.should.equal(200);
     });
 
     it('V2 convert a valid csv file should be successful (happy case)', async () => {

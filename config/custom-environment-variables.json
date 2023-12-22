@@ -5,7 +5,8 @@
   "service": {
     "port": "PORT",
     "uri": "URI",
-    "gatewayURL": "GATEWAY_URL"
+    "gatewayURL": "GATEWAY_URL",
+    "s3Bucket": "CONVERTER_S3_BUCKET"
   },
   "logger": {
     "level": "LOGGER_LEVEL"

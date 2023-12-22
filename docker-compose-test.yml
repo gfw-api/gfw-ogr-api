@@ -15,6 +15,7 @@ services:
       LOCAL_URL: http://mymachine:7948
       FASTLY_ENABLED: "false"
       AWS_REGION: "us-east-1"
+      CONVERTER_S3_BUCKET: "test"
       AWS_ACCESS_KEY_ID: "test"
       AWS_SECRET_ACCESS_KEY: "test"
     command: test

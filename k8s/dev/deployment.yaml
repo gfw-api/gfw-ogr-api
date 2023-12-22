@@ -80,6 +80,11 @@ spec:
                 secretKeyRef:
                   key: REQUIRE_API_KEY
                   name: mssecrets
+            - name: CONVERTER_S3_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  key: CONVERTER_S3_BUCKET
+                  name: mssecrets
           image: gfwdockerhub/gfw-ogr
           imagePullPolicy: Always
           livenessProbe:

@@ -38,7 +38,7 @@ spec:
             - name: PORT
               value: "3200"
             - name: LOGGER_LEVEL
-              value: warn
+              value: info
             - name: NODE_ENV
               value: prod
             - name: NODE_PATH
@@ -82,6 +82,11 @@ spec:
                 secretKeyRef:
                   key: REQUIRE_API_KEY
                   name: mssecrets
+            - name: CONVERTER_S3_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  key: CONVERTER_S3_BUCKET
+                  name: mssecrets
           image: gfwdockerhub/gfw-ogr
           imagePullPolicy: Always
           livenessProbe:
@@ -90,7 +95,7 @@ spec:
               path: /healthcheck
               port: 3200
               scheme: HTTP
-            initialDelaySeconds: 30
+            initialDelaySeconds: 15
             periodSeconds: 15
             successThreshold: 1
             timeoutSeconds: 5
@@ -104,14 +109,14 @@ spec:
               path: /healthcheck
               port: 3200
               scheme: HTTP
-            initialDelaySeconds: 30
+            initialDelaySeconds: 15
             periodSeconds: 15
             successThreshold: 1
             timeoutSeconds: 5
           resources:
             limits:
               cpu: "1"
-              memory: 512M
+              memory: 1G
             requests:
               cpu: 250m
               memory: 256M
