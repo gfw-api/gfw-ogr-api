@@ -86,6 +86,30 @@ class OGRRouterV2 {
         return signedUrl;
     }
 
+    static async uploadToS3(filename, content) {
+
+        const clientConfig = { region: process.env.AWS_REGION };
+        if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+            clientConfig.credentials = {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+            };
+        }
+
+        const s3Client = new S3Client(clientConfig);
+        const s3Payload = {
+            Body: content,
+            Bucket: process.env.CONVERTER_S3_BUCKET,
+            Key: filename,
+        };
+        const command = new PutObjectCommand(s3Payload);
+        await s3Client.send(command);
+
+        const getCommand = new GetObjectCommand(s3Payload);
+        const signedUrl = await getSignedUrl(s3Client, getCommand, { expiresIn: 900 });
+        return signedUrl;
+    }
+
 }
 
 router.post('/convert', OGRRouterV2.convertV2);

@@ -6,6 +6,8 @@ const { mockValidateRequestWithApiKey } = require('../utils/helpers');
 
 const { mockPutAWSS3Object, mockGetAWSS3Object } = require('../utils/mocks');
 
+const { mockPutAWSS3Object, mockGetAWSS3Object } = require('../utils/mocks');
+
 chai.should();
 chai.use(require('chai-datetime'));
 
