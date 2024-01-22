@@ -80,6 +80,19 @@ describe('V1 convert tests', () => {
         response.body.should.deep.equal(fileData);
     });
 
+    it('V2 convert a valid excel file should be successful (happy case)', async () => {
+        mockValidateRequestWithApiKey({});
+        const fileData = JSON.parse(fs.readFileSync(`${process.cwd()}/app/test/e2e/files/excel_response_v1.json`));
+
+        const response = await requester
+            .post(`/api/v1/ogr/convert`)
+            .set('x-api-key', 'api-key-test')
+            .attach('file', `${process.cwd()}/app/test/e2e/files/example_coordinates.xlsx`);
+
+        response.status.should.equal(200);
+        response.body.should.deep.equal(fileData);
+    });
+
     afterEach(() => {
         if (!nock.isDone()) {
             throw new Error(`Not all nock interceptors were used: ${nock.pendingMocks()}`);
