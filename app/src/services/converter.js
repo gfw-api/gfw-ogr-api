@@ -17,7 +17,7 @@ class OGRConverter {
         logger.info(`[OGRRouterV2 - convertV2] file type: ${ctx.request.files.file.type}`);
         logger.debug(`[OGRRouterV2 - convertV2] file size: ${ctx.request.files.file.size}`);
 
-        if (ctx.request.files.file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+        if (path.extname(ctx.request.files.file.filepath) === '.xlsx') {
             logger.info('[OGRRouterV2 - convertV2] It is an excel file');
             const xslxFile = XLSX.readFile(ctx.request.files.file.filepath);
             const csvPAth = path.parse(ctx.request.files.file.filepath);
@@ -25,7 +25,14 @@ class OGRConverter {
             csvPAth.base = csvPAth.name + csvPAth.ext;
             XLSX.writeFile(xslxFile, path.format(csvPAth), { type: 'file', bookType: 'csv' });
             ctx.request.files.file.filepath = path.format(csvPAth);
-            const options = ['-t_srs', 'EPSG:4326', '-oo', 'GEOM_POSSIBLE_NAMES=*geom*', '-oo', 'HEADERS=AUTO', '-oo', 'X_POSSIBLE_NAMES=Lon*', '-oo', 'Y_POSSIBLE_NAMES=Lat*', '-oo', 'KEEP_GEOM_COLUMNS=YES'];
+            const options = [
+                '-s_srs', 'EPSG:4326', '-t_srs', 'EPSG:4326',
+                '-oo', 'GEOM_POSSIBLE_NAMES=*geom*',
+                '-oo', 'CSVLINE=YES',
+                '-oo', 'X_POSSIBLE_NAMES=lon*,Lon*',
+                '-oo', 'Y_POSSIBLE_NAMES=lat*,Lon*',
+                '-oo', 'KEEP_GEOM_COLUMNS=YES'
+            ];
             result = await ogr2ogr(ctx.request.files.file.filepath, { options, timeout: 60000 });
         } else {
             logger.info('[OGRRouterV2 - convertV2] Not an excel file');
