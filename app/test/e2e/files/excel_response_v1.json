@@ -1,0 +1,64 @@
+{
+    "data": {
+      "type": "geoJSON",
+      "attributes": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "id": "1",
+              "location name": "United States Office",
+              "latitude (decimal degrees)": 38.898992,
+              "longitude (decimal degrees)": -77.007986
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -77.007986,
+                38.898992
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "id": "2",
+              "location name": "Brazil Office",
+              "latitude (decimal degrees)": -23.568232,
+              "longitude (decimal degrees)": -46.693983
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -46.693983,
+                -23.568232
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "id": "3",
+              "location name": "Europe Office",
+              "latitude (decimal degrees)": 52.07906,
+              "longitude (decimal degrees)": 4.318852
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                4.318852,
+                52.07906
+              ]
+            }
+          }
+        ],
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+          }
+        }
+      }
+    }
+  }
